@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    command: "rails server -p 3000 -b '0.0.0.0'"
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - migrations
+
+  postgres:
+    image: postgres:latest
+    env_file: .env
+    ports:
+      - "5432:5432"
+
+  migrations:
+    build: .
+    env_file: .env
+    command: bundle exec rails db:setup
+    restart: on-failure
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - postgres
+
+  seed:
+    build: .
+    env_file: .env
+    command: bundle exec rails db:seed
+    restart: on-failure
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - postgres
+      
+  cache:
+    image: memcached
+    ports:
+     - "11211:11211"

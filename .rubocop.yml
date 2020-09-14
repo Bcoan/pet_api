@@ -1,0 +1,23 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - vendor/**/*
+    - db/**/*
+    - bin/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*_spec.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - '**/*_spec.rb'

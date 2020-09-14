@@ -1,0 +1,3 @@
+pt-BR:
+  errors:
+    record_not_found: "Não foi possível o recurso %{model} com id %{id}"
